@@ -2,7 +2,7 @@
 
 ## Wireframe
 
-> - ## Autores 🧑
+ - ## Autores 🧑
 > > Lucas Gomes
 > >
 > > Renan Lira
