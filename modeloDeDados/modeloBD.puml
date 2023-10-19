@@ -1,0 +1,108 @@
+@startuml BeatyOn
+
+
+entity Cliente {
+    *uuid : string <<generated>>
+    --
+    *nome : string
+    *email : string
+    *senha : string
+    *telefone : string
+}
+
+entity Endereco {
+    *uuid : string <<generated>>
+    --
+    *entidadeUuid : string <<FK>>
+    logradouro : string
+    numero : string
+    complemento : string
+    bairro : string
+    cidade : string
+    estado : string
+    cep : string
+    long : number
+    lat : number
+}
+
+entity Estabelecimento {
+    *uuid : string <<generated>>
+    --
+    *nome : string
+    *descricao : string
+    *telefone : string
+    *email : string
+    *senha : string
+    cnpj : string
+}
+
+entity TipoServico{
+    *uuid : string <<generated>>
+    --
+    *nome : string
+    *descricao : string
+}
+
+entity ServicoEstabelecimento{
+    *uuid : string <<generated>>
+    --
+    *estabelecimentoUuid : string <<FK>>
+    *tipoServicoUuid : string <<FK>>
+    *valor : number
+    *tempo : number
+}
+
+entity Agendamento{
+    *uuid : string <<generated>>
+    --
+    *clienteUuid : string <<FK>>
+    *estabelecimentoUuid : string <<FK>>
+    *profissionalUuid : string <<FK>>
+    *servicoUuid : string <<FK>>
+    *data : string
+    *hora : string
+    *status : string
+}
+
+entity HorarioFuncionamento{
+    *uuid : string <<generated>>
+    --
+    *estabelecimentoUuid : string <<FK>>
+    *diaSemana : string
+    *horaInicio : string
+    *horaFim : string
+}
+
+entity Profissional{
+    *uuid : string <<generated>>
+    --
+    *estabelecimentoUuid : string <<FK>>
+    *nome : string
+    *descricao : string
+    *telefone : string
+    *email : string
+}
+
+entity ProfissionalPorServicoEstabelecimento{
+    *uuid : string <<generated>>
+    --
+    *profissionalUuid : string <<FK>>
+    *servicoEstabelecimentoUuid : string <<FK>>
+}
+
+
+Agendamento }o-up-|| Profissional
+Agendamento }o--|| ServicoEstabelecimento
+Agendamento }o--|| Cliente
+Estabelecimento |o--o{ Endereco
+Estabelecimento ||-up-o{ Profissional
+Estabelecimento ||--o{ ServicoEstabelecimento
+
+Cliente ||--o{ Endereco
+TipoServico ||--o{ ServicoEstabelecimento
+Estabelecimento ||--o{ HorarioFuncionamento
+Profissional ||-left-o{ ProfissionalPorServicoEstabelecimento
+ServicoEstabelecimento ||--o{ ProfissionalPorServicoEstabelecimento
+
+
+@enduml
