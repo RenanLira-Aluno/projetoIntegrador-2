@@ -15,3 +15,7 @@
 ## 📱 Wireframes
 
 [Figma - Wireframes](https://www.figma.com/file/HW6Bz2HowkO0lyYCTuRSdp/projeto-integrador03?type=design&node-id=0%3A1&mode=design&t=pvF1hpm8oINhE6tE-1)
+
+## 🎲 Modelo de Dados
+
+![Modelo](/out/modeloDeDados/modeloBD/BeatyOn.png)
