@@ -8,7 +8,7 @@
 >
 > Thiago Pessoa
 >
-## 📜 Backlog
+## 📜 Backlog e Documentação
 
 [Notion - Projeto Integrador 2](https://busy-airbus-05e.notion.site/Projeto-Integrador-2-6a82c5574840477fb151fd6ec2ca71c4?pvs=4)
 
