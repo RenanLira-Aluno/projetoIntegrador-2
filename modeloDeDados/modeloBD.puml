@@ -90,15 +90,31 @@ entity ProfissionalPorServicoEstabelecimento{
     *servicoEstabelecimentoUuid : string <<FK>>
 }
 
+entity Favorito{
+    *uuid : string <<generated>>
+    --
+    *clienteUuid : string <<FK>>
+    *estabelecimentoUuid : string <<FK>>
+}
 
+entity Galeria {
+    *uuid : string <<generated>>
+    --
+    *estabelecimentoUuid : string <<FK>>
+    *url : string
+}
+
+Cliente ||-up-o{ Favorito
+Estabelecimento ||-down-o{ Favorito
+Estabelecimento ||-up-o{ Galeria
 Agendamento }o-up-|| Profissional
 Agendamento }o--|| ServicoEstabelecimento
 Agendamento }o--|| Cliente
-Estabelecimento |o--o{ Endereco
+Estabelecimento |o-down-o{ Endereco
 Estabelecimento ||-up-o{ Profissional
 Estabelecimento ||--o{ ServicoEstabelecimento
 
-Cliente ||--o{ Endereco
+Cliente ||-right-o{ Endereco
 TipoServico ||--o{ ServicoEstabelecimento
 Estabelecimento ||--o{ HorarioFuncionamento
 Profissional ||-left-o{ ProfissionalPorServicoEstabelecimento
