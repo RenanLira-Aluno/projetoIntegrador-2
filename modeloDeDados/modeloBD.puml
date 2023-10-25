@@ -2,18 +2,21 @@
 
 
 entity Cliente {
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
+    *enderecoId : string <<FK>>
     *nome : string
     *email : string
     *senha : string
     *telefone : string
+    lat : number
+    long : number
 }
 
 entity Endereco {
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
-    *entidadeUuid : string <<FK>>
+    *entidadeId : string <<FK>>
     logradouro : string
     numero : string
     complemento : string
@@ -26,8 +29,9 @@ entity Endereco {
 }
 
 entity Estabelecimento {
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
+    *enderecoId : string <<FK>>
     *nome : string
     *descricao : string
     *telefone : string
@@ -36,18 +40,20 @@ entity Estabelecimento {
     cnpj : string
 }
 
-entity TipoServico{
-    *uuid : string <<generated>>
+entity CategoriaServico{
+    *id : string <<generated>>
     --
     *nome : string
     *descricao : string
 }
 
 entity ServicoEstabelecimento{
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
-    *estabelecimentoUuid : string <<FK>>
-    *tipoServicoUuid : string <<FK>>
+    *estabelecimentoId : string <<FK>>
+    *categoriaServicoId : string <<FK>>
+    *nome : string
+    *descricao : string
     *valor : number
     *tempo : number
 }
@@ -55,28 +61,28 @@ entity ServicoEstabelecimento{
 entity Agendamento{
     *uuid : string <<generated>>
     --
-    *clienteUuid : string <<FK>>
-    *estabelecimentoUuid : string <<FK>>
-    *profissionalUuid : string <<FK>>
-    *servicoUuid : string <<FK>>
+    *clienteId : string <<FK>>
+    *estabelecimentoId : string <<FK>>
+    *profissionalId : string <<FK>>
+    *servicoId : string <<FK>>
     *data : string
     *hora : string
     *status : string
 }
 
 entity HorarioFuncionamento{
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
-    *estabelecimentoUuid : string <<FK>>
+    *estabelecimentoId : string <<FK>>
     *diaSemana : string
     *horaInicio : string
     *horaFim : string
 }
 
 entity Profissional{
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
-    *estabelecimentoUuid : string <<FK>>
+    *estabelecimentoId : string <<FK>>
     *nome : string
     *descricao : string
     *telefone : string
@@ -84,23 +90,23 @@ entity Profissional{
 }
 
 entity ProfissionalPorServicoEstabelecimento{
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
-    *profissionalUuid : string <<FK>>
-    *servicoEstabelecimentoUuid : string <<FK>>
+    *profissionalId : string <<FK>>
+    *servicoEstabelecimentoId : string <<FK>>
 }
 
 entity Favorito{
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
-    *clienteUuid : string <<FK>>
-    *estabelecimentoUuid : string <<FK>>
+    *clienteId : string <<FK>>
+    *estabelecimentoId : string <<FK>>
 }
 
 entity Galeria {
-    *uuid : string <<generated>>
+    *id : string <<generated>>
     --
-    *estabelecimentoUuid : string <<FK>>
+    *estabelecimentoId : string <<FK>>
     *url : string
 }
 
@@ -110,11 +116,11 @@ Estabelecimento ||-up-o{ Galeria
 Agendamento }o-up-|| Profissional
 Agendamento }o--|| ServicoEstabelecimento
 Agendamento }o--|| Cliente
-Estabelecimento |o-down-o{ Endereco
+Estabelecimento ||-down-|| Endereco
 Estabelecimento ||-up-o{ Profissional
 Estabelecimento ||--o{ ServicoEstabelecimento
 
-Cliente ||-right-o{ Endereco
+Cliente ||-right-|| Endereco
 TipoServico ||--o{ ServicoEstabelecimento
 Estabelecimento ||--o{ HorarioFuncionamento
 Profissional ||-left-o{ ProfissionalPorServicoEstabelecimento
